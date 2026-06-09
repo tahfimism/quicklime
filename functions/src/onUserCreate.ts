@@ -1,5 +1,6 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+import { FieldValue } from 'firebase-admin/firestore';
 
 // Initialize firebase-admin if it hasn't been already
 if (admin.apps.length === 0) {
@@ -22,8 +23,8 @@ export const onUserCreate = functions.auth.user().onCreate(async (user) => {
       workspaceId: null,
       role: 'student',
       fcmToken: null,
-      createdAt: admin.firestore.FieldValue.serverTimestamp(),
-      lastActiveAt: admin.firestore.FieldValue.serverTimestamp(),
+      createdAt: FieldValue.serverTimestamp(),
+      lastActiveAt: FieldValue.serverTimestamp(),
     });
 
     // 2. Set custom claims { role: 'student', workspaceId: null }

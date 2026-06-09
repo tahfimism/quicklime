@@ -8,13 +8,13 @@ service cloud.firestore {
 
     function isCR(workspaceId) {
       return isSignedIn()
-        && request.auth.token.role == 'cr'
-        && request.auth.token.workspaceId == workspaceId;
+        && request.auth.token.get('role', '') == 'cr'
+        && request.auth.token.get('workspaceId', '') == workspaceId;
     }
 
     function isMember(workspaceId) {
       return isSignedIn()
-        && request.auth.token.workspaceId == workspaceId;
+        && request.auth.token.get('workspaceId', '') == workspaceId;
     }
 
     function isOwner(uid) {

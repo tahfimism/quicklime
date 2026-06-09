@@ -1,5 +1,6 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+import { FieldValue } from 'firebase-admin/firestore';
 
 if (admin.apps.length === 0) {
   admin.initializeApp();
@@ -49,7 +50,7 @@ export const updateFcmToken = functions.https.onCall(async (data, context) => {
     // Update global user document fcmToken
     batch.update(userRef, {
       fcmToken: fcmToken,
-      lastActiveAt: admin.firestore.FieldValue.serverTimestamp(),
+      lastActiveAt: FieldValue.serverTimestamp(),
     });
 
     // Update member list fcmToken

@@ -36,6 +36,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateRoutine = void 0;
 const functions = __importStar(require("firebase-functions"));
 const admin = __importStar(require("firebase-admin"));
+const firestore_1 = require("firebase-admin/firestore");
 if (admin.apps.length === 0) {
     admin.initializeApp();
 }
@@ -95,7 +96,7 @@ exports.updateRoutine = functions.https.onCall(async (data, context) => {
             id: dayOfWeek.toString(),
             dayOfWeek,
             slots: sortedSlots,
-            updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+            updatedAt: firestore_1.FieldValue.serverTimestamp(),
             updatedBy: context.auth.uid,
         });
         return { success: true };

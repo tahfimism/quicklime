@@ -36,6 +36,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createWorkspace = void 0;
 const functions = __importStar(require("firebase-functions"));
 const admin = __importStar(require("firebase-admin"));
+const firestore_1 = require("firebase-admin/firestore");
 if (admin.apps.length === 0) {
     admin.initializeApp();
 }
@@ -91,8 +92,8 @@ exports.createWorkspace = functions.https.onCall(async (data, context) => {
             inviteCode: inviteCode,
             fcmTopic: `workspace_${workspaceId}`,
             memberCount: 1,
-            createdAt: admin.firestore.FieldValue.serverTimestamp(),
-            updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+            createdAt: firestore_1.FieldValue.serverTimestamp(),
+            updatedAt: firestore_1.FieldValue.serverTimestamp(),
         });
         const memberRef = workspaceRef.collection('members').doc(uid);
         batch.set(memberRef, {
@@ -101,14 +102,14 @@ exports.createWorkspace = functions.https.onCall(async (data, context) => {
             email: userSnap.data()?.email || '',
             photoUrl: userSnap.data()?.photoUrl || null,
             role: 'cr',
-            joinedAt: admin.firestore.FieldValue.serverTimestamp(),
+            joinedAt: firestore_1.FieldValue.serverTimestamp(),
             fcmToken: null,
             notificationsEnabled: true,
         });
         batch.update(userRef, {
             workspaceId: workspaceId,
             role: 'cr',
-            lastActiveAt: admin.firestore.FieldValue.serverTimestamp(),
+            lastActiveAt: firestore_1.FieldValue.serverTimestamp(),
         });
         await batch.commit();
         // 4. Update Auth Custom Claims

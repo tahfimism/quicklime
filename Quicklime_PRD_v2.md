@@ -53,7 +53,6 @@ Cloud Functions are the only "backend code" written, and they run on Google's in
 - Multiple workspace membership per user
 - Analytics dashboard
 - University SSO / LDAP login
-- Recurring event patterns
 - In-app chat
 - Offline-first sync
 
@@ -211,14 +210,16 @@ Use a context provider that wraps the entire app:
 
 ```typescript
 // hooks/useAuth.ts
-import { onAuthStateChanged, User } from 'firebase/auth';
+import { onIdTokenChanged, User } from 'firebase/auth';
 
 export function useAuth() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (u) => {
+    // NOTE: onIdTokenChanged (not onAuthStateChanged) is required so the app
+    // re-renders when custom claims are refreshed after joinWorkspace / createWorkspace.
+    const unsub = onIdTokenChanged(auth, (u) => {
       setUser(u);
       setLoading(false);
     });
@@ -302,6 +303,9 @@ interface Routine {
 - No two slots may overlap: slot A's `endTime` must be ≤ slot B's `startTime`
 - `startTime` must be before `endTime`
 - Max 12 slots per day
+
+**CR Edit UX (Course-First Model):**
+The CR uses a single "Add Course" modal that collects course metadata once (name, code, teacher, room) and then one or more day+time rows. Each row has an independent start/end time. On confirm, the course is written to each target day's routine document. This avoids the need to edit each day separately for courses that meet multiple times per week with different times per day.
 
 ---
 
@@ -1077,10 +1081,11 @@ if (__DEV__) {
 - [ ] CR can rotate the invite code
 
 ### Routine
-- [ ] CR can set and update slots for any day of the week
-- [ ] Overlapping slots are rejected with `invalid-argument`
+- [ ] CR can add a course with custom times for multiple days in one action
+- [ ] CR can delete individual slots from any day's edit screen
+- [ ] Overlapping slots are rejected client-side before any Firestore write
 - [ ] Students see routine updates in real-time (no refresh needed)
-- [ ] Max 12 slots per day enforced
+- [ ] Max 12 slots per day enforced server-side
 
 ### Events
 - [ ] CR can create, update, and delete events
@@ -1115,3 +1120,5 @@ if (__DEV__) {
 - Offline-first support via Firestore persistence
 - Role: Teaching Assistant (limited write access)
 - Web app version via Expo for Web
+- Edit existing course across all its days at once (cascade-edit UX)
+- Bulk import routine from CSV / timetable image (OCR)

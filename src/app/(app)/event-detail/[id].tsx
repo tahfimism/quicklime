@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, useColorScheme, TouchableOpacity, Alert } from 'react-native';
+import { View, StyleSheet, useColorScheme, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Colors, Spacing, Radii } from '@/constants/theme';
 import { Typography } from '@/components/ui/Typography';

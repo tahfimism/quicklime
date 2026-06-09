@@ -1,9 +1,17 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
-import { initializeAuth, getAuth, getReactNativePersistence } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-import { getStorage } from 'firebase/storage';
-import { getFunctions } from 'firebase/functions';
 import { Platform } from 'react-native';
+import { 
+  initializeAuth, 
+  getAuth, 
+  Auth, 
+  connectAuthEmulator 
+} from 'firebase/auth';
+// @ts-ignore
+import { getReactNativePersistence } from 'firebase/auth';
+
+import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
+import { getStorage, connectStorageEmulator } from 'firebase/storage';
+import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
 
 const firebaseConfig = {
   apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
@@ -14,14 +22,9 @@ const firebaseConfig = {
   appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID,
 };
 
-import { connectAuthEmulator } from 'firebase/auth';
-import { connectFirestoreEmulator } from 'firebase/firestore';
-import { connectStorageEmulator } from 'firebase/storage';
-import { connectFunctionsEmulator } from 'firebase/functions';
-
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
-let auth;
+let auth: Auth;
 if (Platform.OS === 'web') {
   auth = getAuth(app);
 } else {

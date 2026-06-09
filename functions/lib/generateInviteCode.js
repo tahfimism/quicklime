@@ -36,6 +36,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.generateInviteCode = void 0;
 const functions = __importStar(require("firebase-functions"));
 const admin = __importStar(require("firebase-admin"));
+const firestore_1 = require("firebase-admin/firestore");
 if (admin.apps.length === 0) {
     admin.initializeApp();
 }
@@ -84,7 +85,7 @@ exports.generateInviteCode = functions.https.onCall(async (data, context) => {
         const workspaceRef = db.collection('workspaces').doc(workspaceId);
         await workspaceRef.update({
             inviteCode: inviteCode,
-            updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+            updatedAt: firestore_1.FieldValue.serverTimestamp(),
         });
         return { inviteCode };
     }

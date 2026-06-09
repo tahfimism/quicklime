@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, useColorScheme, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
-import { collection, query, where, getDocs, writeBatch, doc, increment, serverTimestamp } from 'firebase/firestore';
+import { httpsCallable } from 'firebase/functions';
 import { Colors, Spacing } from '@/constants/theme';
 import { Typography } from '@/components/ui/Typography';
 import { InviteCodeInput } from '@/components/ui/Input';
-import { db, auth } from '@/lib/firebase';
+import { auth, functions } from '@/lib/firebase';
 
 /**
  * Join Workspace Screen.
- * Accepts a 6-character invite code, queries the workspaces database,
- * and attaches the current user profile as a student member.
+ * Accepts a 6-character invite code, invokes the joinWorkspace Cloud Function,
+ * and refreshes the user's token credentials.
  */
 export default function JoinWorkspace() {
   const scheme = useColorScheme();
@@ -41,53 +41,12 @@ export default function JoinWorkspace() {
     setError(false);
     
     try {
-      // 1. Query the workspaces collection for a matching inviteCode
-      const q = query(
-        collection(db, 'workspaces'), 
-        where('inviteCode', '==', inviteCode)
-      );
-      const querySnapshot = await getDocs(q);
-
-      if (querySnapshot.empty) {
-        // Invite code not found - trigger error/shake
-        setError(true);
-        setLoading(false);
-        return;
-      }
-
-      const workspaceDoc = querySnapshot.docs[0];
-      const workspaceId = workspaceDoc.id;
-
-      const batch = writeBatch(db);
-
-      // 2. Create workspaces/{workspaceId}/members/{uid}
-      const memberRef = doc(db, `workspaces/${workspaceId}/members`, user.uid);
-      batch.set(memberRef, {
-        uid: user.uid,
-        displayName: user.displayName || 'Student',
-        email: user.email || '',
-        photoUrl: user.photoURL || null,
-        role: 'student',
-        joinedAt: serverTimestamp(),
-        fcmToken: null,
-        notificationsEnabled: true,
-      });
-
-      // 3. Increment workspace memberCount
-      batch.update(workspaceDoc.ref, {
-        memberCount: increment(1),
-        updatedAt: serverTimestamp(),
-      });
-
-      // 4. Update root users/{uid} document
-      const userRef = doc(db, 'users', user.uid);
-      batch.update(userRef, {
-        workspaceId: workspaceId,
-        role: 'student',
-        lastActiveAt: serverTimestamp(),
-      });
-
-      await batch.commit();
+      const joinWorkspaceFn = httpsCallable(functions, 'joinWorkspace');
+      await joinWorkspaceFn({ inviteCode });
+      
+      // Force refresh the auth ID token to fetch the new custom claims (role: 'student', workspaceId)
+      await user.getIdToken(true);
+      
       // AuthGate will automatically detect the updated workspaceId and redirect to /(app)/today!
     } catch (err) {
       console.error('Error joining workspace:', err);
@@ -95,6 +54,7 @@ export default function JoinWorkspace() {
       setLoading(false);
     }
   };
+
 
   return (
     <View style={[styles.container, { backgroundColor: activeColors.background }]}>

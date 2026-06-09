@@ -1,5 +1,6 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+import { FieldValue, Timestamp } from 'firebase-admin/firestore';
 
 if (admin.apps.length === 0) {
   admin.initializeApp();
@@ -54,7 +55,7 @@ export const refreshDownloadUrls = functions.pubsub
               updatedAttachments.push({
                 ...attachment,
                 downloadUrl: signedUrl,
-                uploadedAt: admin.firestore.Timestamp.now(), // Refresh timestamp
+                uploadedAt: Timestamp.now(), // Refresh timestamp
               });
               needsUpdate = true;
             } catch (err) {
@@ -69,7 +70,7 @@ export const refreshDownloadUrls = functions.pubsub
         if (needsUpdate) {
           batch.update(eventDoc.ref, {
             attachments: updatedAttachments,
-            updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+            updatedAt: FieldValue.serverTimestamp(),
           });
           batchCount++;
 

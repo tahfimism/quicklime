@@ -1,5 +1,6 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+import { FieldValue } from 'firebase-admin/firestore';
 
 if (admin.apps.length === 0) {
   admin.initializeApp();
@@ -66,7 +67,7 @@ export const generateInviteCode = functions.https.onCall(async (data, context) =
     const workspaceRef = db.collection('workspaces').doc(workspaceId);
     await workspaceRef.update({
       inviteCode: inviteCode,
-      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+      updatedAt: FieldValue.serverTimestamp(),
     });
 
     return { inviteCode };

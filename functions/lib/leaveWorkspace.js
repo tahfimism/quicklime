@@ -36,6 +36,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.leaveWorkspace = void 0;
 const functions = __importStar(require("firebase-functions"));
 const admin = __importStar(require("firebase-admin"));
+const firestore_1 = require("firebase-admin/firestore");
 if (admin.apps.length === 0) {
     admin.initializeApp();
 }
@@ -78,11 +79,11 @@ exports.leaveWorkspace = functions.https.onCall(async (data, context) => {
         batch.update(userRef, {
             workspaceId: null,
             role: 'student',
-            lastActiveAt: admin.firestore.FieldValue.serverTimestamp(),
+            lastActiveAt: firestore_1.FieldValue.serverTimestamp(),
         });
         batch.update(workspaceRef, {
-            memberCount: admin.firestore.FieldValue.increment(-1),
-            updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+            memberCount: firestore_1.FieldValue.increment(-1),
+            updatedAt: firestore_1.FieldValue.serverTimestamp(),
         });
         await batch.commit();
         // 5. Reset Custom Claims

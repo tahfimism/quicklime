@@ -36,6 +36,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.onUserCreate = void 0;
 const functions = __importStar(require("firebase-functions"));
 const admin = __importStar(require("firebase-admin"));
+const firestore_1 = require("firebase-admin/firestore");
 // Initialize firebase-admin if it hasn't been already
 if (admin.apps.length === 0) {
     admin.initializeApp();
@@ -56,8 +57,8 @@ exports.onUserCreate = functions.auth.user().onCreate(async (user) => {
             workspaceId: null,
             role: 'student',
             fcmToken: null,
-            createdAt: admin.firestore.FieldValue.serverTimestamp(),
-            lastActiveAt: admin.firestore.FieldValue.serverTimestamp(),
+            createdAt: firestore_1.FieldValue.serverTimestamp(),
+            lastActiveAt: firestore_1.FieldValue.serverTimestamp(),
         });
         // 2. Set custom claims { role: 'student', workspaceId: null }
         await admin.auth().setCustomUserClaims(user.uid, {

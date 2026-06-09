@@ -23,7 +23,7 @@ export function Typography({
   const variantStyle = TypographyVariants[variant];
   
   // Assign default colors based on typography role
-  let defaultColor = activeColors.onBackground;
+  let defaultColor: string = activeColors.onBackground;
   if (
     variant === 'sectionHeader' || 
     variant === 'labelMd' || 

@@ -63,7 +63,9 @@ export default function MembersScreen() {
           Workspace Members
         </Typography>
 
-        <View style={{ width: 44 }} /> {/* Balance Spacer */}
+        {/* Balance Spacer */}
+        <View style={{ width: 44 }} />
+
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollContent}>

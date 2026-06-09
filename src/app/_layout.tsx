@@ -16,7 +16,7 @@ import { useAuth } from '@/hooks/useAuth';
 SplashScreen.preventAutoHideAsync();
 
 function AuthGate() {
-  const { user, profile, loading } = useAuth();
+  const { user, profile, claims, loading } = useAuth();
   const segments = useSegments();
   const router = useRouter();
 
@@ -42,13 +42,19 @@ function AuthGate() {
           router.replace('/onboarding');
         }
       } else {
+        // Wait until claims are also updated with workspaceId to prevent security rule race conditions
+        if (!claims || claims.workspaceId !== profile.workspaceId) {
+          console.log('[AuthGate] Waiting for custom claims to sync...');
+          return;
+        }
+
         // Authenticated and workspace joined -> main app
         if (!inAppGroup) {
           router.replace('/(app)/today');
         }
       }
     }
-  }, [user, profile, loading, segments]);
+  }, [user, profile, claims, loading, segments]);
 
   return <Slot />;
 }

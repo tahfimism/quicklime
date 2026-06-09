@@ -32,6 +32,40 @@ export interface Slot {
   endTime: string;        // "HH:mm" 24-hour format e.g. "10:30"
 }
 
+/**
+ * Local-only UI type (never stored in Firestore).
+ * Represents one day+time row inside the "Add Course" modal.
+ */
+export interface CourseScheduleRow {
+  rowId: string;                          // uuid, React key
+  dayOfWeek: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+  startTime: string;                      // "HH:mm"
+  endTime: string;                        // "HH:mm"
+}
+
+/**
+ * One occurrence of a course on a specific day, derived from a Slot.
+ * Used when aggregating slots across all days into a course list.
+ */
+export interface CourseOccurrence {
+  slotId: string;
+  dayOfWeek: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+  startTime: string;
+  endTime: string;
+}
+
+/**
+ * A logical course entry, aggregated client-side by grouping all Slots with
+ * the same courseCode across all 7 routine documents.
+ */
+export interface CourseEntry {
+  courseName: string;
+  courseCode: string;
+  teacherName: string;
+  room: string | null;
+  occurrences: CourseOccurrence[]; // sorted by dayOfWeek then startTime
+}
+
 export interface Routine {
   id: string;
   dayOfWeek: 0 | 1 | 2 | 3 | 4 | 5 | 6;  // 0 = Sunday, 6 = Saturday
@@ -77,6 +111,7 @@ export interface UserProfile {
   workspaceId: string | null;  // null until joined
   role: 'cr' | 'student';
   fcmToken: string | null;
+  notificationsEnabled?: boolean;
   createdAt: Timestamp;
   lastActiveAt: Timestamp;
 }

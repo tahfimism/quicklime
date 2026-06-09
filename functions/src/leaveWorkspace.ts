@@ -1,5 +1,6 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+import { FieldValue } from 'firebase-admin/firestore';
 
 if (admin.apps.length === 0) {
   admin.initializeApp();
@@ -57,12 +58,12 @@ export const leaveWorkspace = functions.https.onCall(async (data, context) => {
     batch.update(userRef, {
       workspaceId: null,
       role: 'student',
-      lastActiveAt: admin.firestore.FieldValue.serverTimestamp(),
+      lastActiveAt: FieldValue.serverTimestamp(),
     });
 
     batch.update(workspaceRef, {
-      memberCount: admin.firestore.FieldValue.increment(-1),
-      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+      memberCount: FieldValue.increment(-1),
+      updatedAt: FieldValue.serverTimestamp(),
     });
 
     await batch.commit();

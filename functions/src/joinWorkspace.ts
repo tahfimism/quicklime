@@ -1,5 +1,6 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+import { FieldValue } from 'firebase-admin/firestore';
 
 if (admin.apps.length === 0) {
   admin.initializeApp();
@@ -78,20 +79,20 @@ export const joinWorkspace = functions.https.onCall(async (data, context) => {
       email: userSnap.data()?.email || '',
       photoUrl: userSnap.data()?.photoUrl || null,
       role: 'student',
-      joinedAt: admin.firestore.FieldValue.serverTimestamp(),
+      joinedAt: FieldValue.serverTimestamp(),
       fcmToken: userSnap.data()?.fcmToken || null,
       notificationsEnabled: true,
     });
 
     batch.update(workspaceDoc.ref, {
-      memberCount: admin.firestore.FieldValue.increment(1),
-      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+      memberCount: FieldValue.increment(1),
+      updatedAt: FieldValue.serverTimestamp(),
     });
 
     batch.update(userRef, {
       workspaceId: workspaceId,
       role: 'student',
-      lastActiveAt: admin.firestore.FieldValue.serverTimestamp(),
+      lastActiveAt: FieldValue.serverTimestamp(),
     });
 
     await batch.commit();

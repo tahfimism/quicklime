@@ -1,5 +1,6 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+import { FieldValue } from 'firebase-admin/firestore';
 
 if (admin.apps.length === 0) {
   admin.initializeApp();
@@ -78,8 +79,8 @@ export const createWorkspace = functions.https.onCall(async (data, context) => {
       inviteCode: inviteCode,
       fcmTopic: `workspace_${workspaceId}`,
       memberCount: 1,
-      createdAt: admin.firestore.FieldValue.serverTimestamp(),
-      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+      createdAt: FieldValue.serverTimestamp(),
+      updatedAt: FieldValue.serverTimestamp(),
     });
 
     const memberRef = workspaceRef.collection('members').doc(uid);
@@ -89,7 +90,7 @@ export const createWorkspace = functions.https.onCall(async (data, context) => {
       email: userSnap.data()?.email || '',
       photoUrl: userSnap.data()?.photoUrl || null,
       role: 'cr',
-      joinedAt: admin.firestore.FieldValue.serverTimestamp(),
+      joinedAt: FieldValue.serverTimestamp(),
       fcmToken: null,
       notificationsEnabled: true,
     });
@@ -97,7 +98,7 @@ export const createWorkspace = functions.https.onCall(async (data, context) => {
     batch.update(userRef, {
       workspaceId: workspaceId,
       role: 'cr',
-      lastActiveAt: admin.firestore.FieldValue.serverTimestamp(),
+      lastActiveAt: FieldValue.serverTimestamp(),
     });
 
     await batch.commit();

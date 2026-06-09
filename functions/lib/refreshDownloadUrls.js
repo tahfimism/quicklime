@@ -36,6 +36,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.refreshDownloadUrls = void 0;
 const functions = __importStar(require("firebase-functions"));
 const admin = __importStar(require("firebase-admin"));
+const firestore_1 = require("firebase-admin/firestore");
 if (admin.apps.length === 0) {
     admin.initializeApp();
 }
@@ -79,7 +80,7 @@ exports.refreshDownloadUrls = functions.pubsub
                         updatedAttachments.push({
                             ...attachment,
                             downloadUrl: signedUrl,
-                            uploadedAt: admin.firestore.Timestamp.now(), // Refresh timestamp
+                            uploadedAt: firestore_1.Timestamp.now(), // Refresh timestamp
                         });
                         needsUpdate = true;
                     }
@@ -95,7 +96,7 @@ exports.refreshDownloadUrls = functions.pubsub
             if (needsUpdate) {
                 batch.update(eventDoc.ref, {
                     attachments: updatedAttachments,
-                    updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+                    updatedAt: firestore_1.FieldValue.serverTimestamp(),
                 });
                 batchCount++;
                 if (batchCount >= batchLimit) {

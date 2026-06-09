@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { onAuthStateChanged, User } from 'firebase/auth';
+import { onIdTokenChanged, User, ParsedToken } from 'firebase/auth';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { auth, db } from '@/lib/firebase';
 import { UserProfile } from '@/types';
@@ -11,14 +11,23 @@ import { UserProfile } from '@/types';
 export function useAuth() {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [claims, setClaims] = useState<ParsedToken | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubAuth = onAuthStateChanged(auth, (u) => {
+    const unsubAuth = onIdTokenChanged(auth, async (u) => {
       setUser(u);
       if (!u) {
         setProfile(null);
+        setClaims(null);
         setLoading(false);
+      } else {
+        try {
+          const tokenResult = await u.getIdTokenResult();
+          setClaims(tokenResult.claims);
+        } catch (err) {
+          console.error('Error fetching initial token claims:', err);
+        }
       }
     });
 
@@ -32,20 +41,20 @@ export function useAuth() {
     const userDocRef = doc(db, 'users', user.uid);
     const unsubDoc = onSnapshot(userDocRef, (snap) => {
       if (snap.exists()) {
-        setProfile(snap.data() as UserProfile);
+        const profileData = snap.data() as UserProfile;
+        setProfile(profileData);
       } else {
         setProfile(null);
       }
       setLoading(false);
     }, (err) => {
       console.error('Error listening to user profile:', err);
-      // Fallback: If document doesn't exist yet, we still want to finish loading
       setLoading(false);
     });
 
     return unsubDoc;
   }, [user]);
 
-  return { user, profile, loading };
+  return { user, profile, claims, loading };
 }
 export default useAuth;

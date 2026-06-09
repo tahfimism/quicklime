@@ -36,6 +36,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateFcmToken = void 0;
 const functions = __importStar(require("firebase-functions"));
 const admin = __importStar(require("firebase-admin"));
+const firestore_1 = require("firebase-admin/firestore");
 if (admin.apps.length === 0) {
     admin.initializeApp();
 }
@@ -68,7 +69,7 @@ exports.updateFcmToken = functions.https.onCall(async (data, context) => {
         // Update global user document fcmToken
         batch.update(userRef, {
             fcmToken: fcmToken,
-            lastActiveAt: admin.firestore.FieldValue.serverTimestamp(),
+            lastActiveAt: firestore_1.FieldValue.serverTimestamp(),
         });
         // Update member list fcmToken
         if (workspaceId) {

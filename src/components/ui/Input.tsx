@@ -162,7 +162,7 @@ export function InviteCodeInput({
         return (
           <TextInput
             key={index}
-            ref={(el) => (inputsRef.current[index] = el)}
+            ref={(el) => { inputsRef.current[index] = el; }}
             style={[
               styles.inviteCodeBox,
               {
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
     ...Platform.select({
       web: {
         outlineStyle: 'none',
-      },
+      } as any,
     }),
   },
 });
