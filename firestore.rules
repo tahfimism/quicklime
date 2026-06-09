@@ -1,0 +1,55 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isCR(workspaceId) {
+      return isSignedIn()
+        && request.auth.token.role == 'cr'
+        && request.auth.token.workspaceId == workspaceId;
+    }
+
+    function isMember(workspaceId) {
+      return isSignedIn()
+        && request.auth.token.workspaceId == workspaceId;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    // Users: only the owner can read/write their own profile
+    match /users/{uid} {
+      allow read, write: if isOwner(uid);
+    }
+
+    // Workspaces
+    match /workspaces/{workspaceId} {
+      allow read: if isMember(workspaceId);
+      allow create: if isSignedIn();
+      allow update, delete: if isCR(workspaceId);
+
+      // Members subcollection
+      match /members/{uid} {
+        allow read: if isMember(workspaceId);
+        // CR can write any member; member can write their own (for FCM token updates)
+        allow write: if isCR(workspaceId) || isOwner(uid);
+      }
+
+      // Routines: members read, CR write
+      match /routines/{routineId} {
+        allow read: if isMember(workspaceId);
+        allow write: if isCR(workspaceId);
+      }
+
+      // Events: members read, CR write
+      match /events/{eventId} {
+        allow read: if isMember(workspaceId);
+        allow write: if isCR(workspaceId);
+      }
+    }
+  }
+}

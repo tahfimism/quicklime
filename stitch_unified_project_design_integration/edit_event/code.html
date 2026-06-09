@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Edit Event</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&amp;family=Geist+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#636261",
+                        "inverse-on-surface": "#f2f1ee",
+                        "accent-muted": "#EAF1ED",
+                        "inverse-primary": "#95d4b3",
+                        "background": "#faf9f6",
+                        "tertiary-container": "#625f57",
+                        "on-secondary-fixed-variant": "#474745",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#ded9cf",
+                        "primary-fixed": "#b1f0ce",
+                        "on-tertiary-fixed": "#1d1c16",
+                        "surface-dim": "#dbdad7",
+                        "tertiary-fixed": "#e7e2d8",
+                        "secondary-container": "#e2dfdd",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e9e8e5",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#e3e2df",
+                        "tertiary": "#4a4740",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#2d6a4f",
+                        "on-primary-fixed-variant": "#0e5138",
+                        "secondary": "#5f5e5d",
+                        "line": "#E4E2DD",
+                        "tertiary-fixed-dim": "#cbc6bc",
+                        "outline": "#707973",
+                        "on-secondary": "#ffffff",
+                        "inverse-surface": "#2f312f",
+                        "secondary-fixed": "#e5e2e0",
+                        "on-surface": "#1b1c1a",
+                        "secondary-fixed-dim": "#c9c6c4",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#1c1c1a",
+                        "primary": "#0f5238",
+                        "on-primary-container": "#a8e7c5",
+                        "primary-fixed-dim": "#95d4b3",
+                        "text-tertiary": "#AEADA8",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-low": "#f4f3f0",
+                        "outline-variant": "#bfc9c1",
+                        "surface-tint": "#2c694e",
+                        "on-tertiary-fixed-variant": "#49473f",
+                        "surface-bright": "#faf9f6",
+                        "destructive": "#C0392B",
+                        "on-primary-fixed": "#002114",
+                        "surface-container-highest": "#e3e2df",
+                        "surface": "#FFFFFF",
+                        "sunken": "#EEECE8",
+                        "surface-container": "#efeeeb",
+                        "on-background": "#1b1c1a",
+                        "on-surface-variant": "#404943",
+                        "on-error": "#ffffff",
+                        "accent": "#0f5238" // Added accent alias to primary for easy usage
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "32px",
+                        "margin-h": "20px",
+                        "md": "16px",
+                        "xs": "4px",
+                        "lg": "24px",
+                        "button-height": "50px",
+                        "sm": "8px",
+                        "xxl": "48px"
+                    },
+                    "fontFamily": {
+                        "section-header": ["Instrument Sans"],
+                        "data-mono": ["Geist Mono"],
+                        "display-wordmark": ["Instrument Sans"],
+                        "headline-lg": ["Instrument Sans"],
+                        "course-name": ["Instrument Sans"],
+                        "body-md": ["Instrument Sans"],
+                        "code-mono": ["Geist Mono"],
+                        "label-md": ["Instrument Sans"],
+                        "event-title": ["Instrument Sans"],
+                        "headline-lg-mobile": ["Instrument Sans"],
+                        "caption": ["Instrument Sans"]
+                    },
+                    "fontSize": {
+                        "section-header": ["13px", { "lineHeight": "18px", "letterSpacing": "0.4px", "fontWeight": "600" }],
+                        "data-mono": ["13px", { "lineHeight": "16px", "letterSpacing": "0px", "fontWeight": "400" }],
+                        "display-wordmark": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.5px", "fontWeight": "600" }],
+                        "headline-lg": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.5px", "fontWeight": "600" }],
+                        "course-name": ["16px", { "lineHeight": "22px", "letterSpacing": "-0.2px", "fontWeight": "500" }],
+                        "body-md": ["15px", { "lineHeight": "22px", "letterSpacing": "0px", "fontWeight": "400" }],
+                        "code-mono": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1px", "fontWeight": "400" }],
+                        "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0px", "fontWeight": "400" }],
+                        "event-title": ["24px", { "lineHeight": "28px", "letterSpacing": "-0.2px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.5px", "fontWeight": "600" }],
+                        "caption": ["11px", { "lineHeight": "16px", "letterSpacing": "0.1px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #000; /* Dimmed background for the modal effect */
+            display: flex;
+            justify-content: center;
+            align-items: flex-end; /* Bottom sheet styling */
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .bottom-sheet {
+            animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        /* Hide scrollbar for clean look */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="antialiased text-on-surface">
+<!-- The Bottom Sheet Container -->
+<div class="bottom-sheet bg-background w-full max-w-[600px] h-[813px] rounded-t-xl flex flex-col shadow-2xl relative overflow-hidden">
+<!-- Header / Nav -->
+<header class="flex justify-between items-center px-margin-h h-[64px] border-b border-line bg-surface shrink-0 z-10 sticky top-0">
+<button class="text-secondary font-label-md hover:text-on-surface transition-colors">
+                Cancel
+            </button>
+<h1 class="font-section-header text-section-header text-on-surface absolute left-1/2 -translate-x-1/2">
+                Edit Event
+            </h1>
+<button class="text-accent font-label-md font-semibold hover:opacity-80 transition-opacity">
+                Save
+            </button>
+</header>
+<!-- Scrollable Content Canvas -->
+<main class="flex-1 overflow-y-auto px-margin-h py-lg pb-xxl">
+<form class="flex flex-col gap-lg">
+<!-- Event Type (Chips) -->
+<section class="flex flex-col gap-sm">
+<label class="font-label-md text-label-md text-on-surface-variant">Type</label>
+<div class="flex flex-wrap gap-sm">
+<button class="px-md py-sm rounded-lg bg-surface border border-line text-secondary font-label-md text-label-md transition-colors hover:bg-surface-variant" type="button">Class</button>
+<button class="px-md py-sm rounded-lg bg-accent-muted border border-accent-muted text-accent font-label-md text-label-md shadow-[0_0_0_2pt_rgba(15,82,56,1)] transition-colors" type="button">Test</button>
+<button class="px-md py-sm rounded-lg bg-surface border border-line text-secondary font-label-md text-label-md transition-colors hover:bg-surface-variant" type="button">Assignment</button>
+<button class="px-md py-sm rounded-lg bg-surface border border-line text-secondary font-label-md text-label-md transition-colors hover:bg-surface-variant" type="button">Meeting</button>
+</div>
+</section>
+<!-- Title Input -->
+<section class="flex flex-col gap-sm">
+<label class="font-label-md text-label-md text-on-surface-variant" for="event-title">Title</label>
+<input class="h-button-height px-md rounded-DEFAULT bg-surface border border-line text-on-surface font-body-md text-body-md focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-shadow w-full" id="event-title" type="text" value="Mid-Term Examination"/>
+</section>
+<!-- Course Selector -->
+<section class="flex flex-col gap-sm">
+<label class="font-label-md text-label-md text-on-surface-variant">Course</label>
+<button class="h-button-height px-md rounded-DEFAULT bg-surface border border-line flex justify-between items-center w-full focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-shadow" type="button">
+<div class="flex items-center gap-sm">
+<div class="w-2 h-2 rounded-full bg-accent"></div>
+<span class="font-course-name text-course-name text-on-surface">Data Structures</span>
+</div>
+<span class="material-symbols-outlined text-secondary" style="font-size: 20px;">unfold_more</span>
+</button>
+</section>
+<!-- Date & Time Row -->
+<section class="grid grid-cols-2 gap-md">
+<!-- Date -->
+<div class="flex flex-col gap-sm col-span-2 md:col-span-1">
+<label class="font-label-md text-label-md text-on-surface-variant">Date</label>
+<button class="h-button-height px-md rounded-DEFAULT bg-surface border border-line flex justify-between items-center w-full" type="button">
+<span class="font-data-mono text-data-mono text-on-surface">Oct 14, 2023</span>
+<span class="material-symbols-outlined text-secondary" style="font-size: 20px;">calendar_today</span>
+</button>
+</div>
+<!-- Time (Start/End) -->
+<div class="flex flex-col gap-sm col-span-2 md:col-span-1">
+<label class="font-label-md text-label-md text-on-surface-variant">Time</label>
+<div class="flex items-center gap-xs">
+<button class="h-button-height px-md rounded-DEFAULT bg-surface border border-line flex justify-center items-center flex-1" type="button">
+<span class="font-data-mono text-data-mono text-on-surface">09:00 AM</span>
+</button>
+<span class="text-secondary font-body-md mx-xs">-</span>
+<button class="h-button-height px-md rounded-DEFAULT bg-surface border border-line flex justify-center items-center flex-1" type="button">
+<span class="font-data-mono text-data-mono text-on-surface">10:30 AM</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Location -->
+<section class="flex flex-col gap-sm">
+<label class="font-label-md text-label-md text-on-surface-variant" for="event-location">Location</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-secondary" style="font-size: 20px;">location_on</span>
+<input class="h-button-height pl-10 pr-md rounded-DEFAULT bg-surface border border-line text-on-surface font-body-md text-body-md focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-shadow w-full" id="event-location" type="text" value="Room 402, Science Bldg"/>
+</div>
+</section>
+<!-- Attachments -->
+<section class="flex flex-col gap-sm mt-md">
+<div class="flex justify-between items-center">
+<label class="font-section-header text-section-header text-on-surface-variant">Attachments</label>
+<button class="text-accent font-label-md text-label-md flex items-center gap-xs hover:opacity-80" type="button">
+<span class="material-symbols-outlined" style="font-size: 16px;">add</span> Add File
+                        </button>
+</div>
+<div class="flex flex-col gap-sm">
+<!-- Existing Attachment -->
+<div class="bg-surface border border-line rounded-DEFAULT p-md flex items-center justify-between group">
+<div class="flex items-center gap-md overflow-hidden">
+<div class="w-10 h-10 rounded bg-sunken flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary" style="font-size: 20px;">description</span>
+</div>
+<div class="flex flex-col truncate">
+<span class="font-body-md text-body-md text-on-surface truncate">Syllabus_Final.pdf</span>
+<span class="font-caption text-caption text-text-tertiary uppercase tracking-wider">PDF • 2.4 MB</span>
+</div>
+</div>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-secondary hover:bg-surface-variant hover:text-destructive transition-colors shrink-0" type="button">
+<span class="material-symbols-outlined" style="font-size: 18px;">close</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Delete Action (Bottom) -->
+<section class="mt-xl pt-lg border-t border-line">
+<button class="w-full h-button-height rounded-lg bg-surface border border-destructive/20 text-destructive font-label-md text-label-md font-semibold flex items-center justify-center gap-sm hover:bg-error-container/50 transition-colors" type="button">
+<span class="material-symbols-outlined" style="font-size: 20px;">delete</span>
+                        Delete Event
+                    </button>
+</section>
+</form>
+</main>
+</div>
+</body></html>

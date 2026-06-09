@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Add Event - Quicklime</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#dbdad7",
+                        "inverse-surface": "#2f312f",
+                        "tertiary-fixed-dim": "#cbc6bc",
+                        "on-primary-container": "#a8e7c5",
+                        "primary-container": "#2d6a4f",
+                        "secondary-container": "#e2dfdd",
+                        "on-secondary-container": "#636261",
+                        "on-secondary-fixed": "#1c1c1a",
+                        "on-tertiary-container": "#ded9cf",
+                        "line": "#E4E2DD",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#474745",
+                        "destructive": "#C0392B",
+                        "outline": "#707973",
+                        "tertiary-fixed": "#e7e2d8",
+                        "on-tertiary-fixed": "#1d1c16",
+                        "on-primary-fixed-variant": "#0e5138",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#e3e2df",
+                        "on-surface": "#1b1c1a",
+                        "secondary-fixed-dim": "#c9c6c4",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#4a4740",
+                        "on-primary-fixed": "#002114",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#e5e2e0",
+                        "on-surface-variant": "#404943",
+                        "on-tertiary-fixed-variant": "#49473f",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#bfc9c1",
+                        "surface-variant": "#e3e2df",
+                        "surface-container": "#efeeeb",
+                        "inverse-primary": "#95d4b3",
+                        "surface": "#FFFFFF",
+                        "primary": "#0f5238",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#95d4b3",
+                        "primary-fixed": "#b1f0ce",
+                        "text-tertiary": "#AEADA8",
+                        "surface-tint": "#2c694e",
+                        "sunken": "#EEECE8",
+                        "background": "#faf9f6",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#1b1c1a",
+                        "surface-container-low": "#f4f3f0",
+                        "surface-container-high": "#e9e8e5",
+                        "accent-muted": "#EAF1ED",
+                        "tertiary-container": "#625f57",
+                        "inverse-on-surface": "#f2f1ee",
+                        "surface-bright": "#faf9f6",
+                        "secondary": "#5f5e5d",
+                        "error": "#ba1a1a",
+                        "accent": "#0f5238" 
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "xxl": "48px",
+                        "md": "16px",
+                        "margin-h": "20px",
+                        "button-height": "50px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "data-mono": ["Geist Mono"],
+                        "caption": ["Instrument Sans"],
+                        "display-wordmark": ["Instrument Sans"],
+                        "course-name": ["Instrument Sans"],
+                        "label-md": ["Instrument Sans"],
+                        "section-header": ["Instrument Sans"],
+                        "body-md": ["Instrument Sans"],
+                        "headline-lg-mobile": ["Instrument Sans"],
+                        "event-title": ["Instrument Sans"],
+                        "code-mono": ["Geist Mono"],
+                        "headline-lg": ["Instrument Sans"]
+                    },
+                    "fontSize": {
+                        "data-mono": ["13px", {"lineHeight": "16px", "letterSpacing": "0px", "fontWeight": "400"}],
+                        "caption": ["11px", {"lineHeight": "16px", "letterSpacing": "0.1px", "fontWeight": "400"}],
+                        "display-wordmark": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.5px", "fontWeight": "600"}],
+                        "course-name": ["16px", {"lineHeight": "22px", "letterSpacing": "-0.2px", "fontWeight": "500"}],
+                        "label-md": ["13px", {"lineHeight": "18px", "letterSpacing": "0px", "fontWeight": "400"}],
+                        "section-header": ["13px", {"lineHeight": "18px", "letterSpacing": "0.4px", "fontWeight": "600"}],
+                        "body-md": ["15px", {"lineHeight": "22px", "letterSpacing": "0px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "30px", "letterSpacing": "-0.5px", "fontWeight": "600"}],
+                        "event-title": ["24px", {"lineHeight": "28px", "letterSpacing": "-0.2px", "fontWeight": "600"}],
+                        "code-mono": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1px", "fontWeight": "400"}],
+                        "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.5px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* Hide scrollbar for a cleaner look but allow scrolling */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Form Element Reset */
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            box-shadow: none;
+            border-color: #0f5238; /* Accent color */
+        }
+        
+        /* Segmented Control Styles */
+        input[type="radio"]:checked + label {
+            background-color: #0f5238; /* Accent */
+            color: #ffffff;
+            border-color: #0f5238;
+        }
+        
+        /* Calendar specific styles to maintain Swiss Grid feel */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px; /* Default radius from config */
+            cursor: pointer;
+        }
+        .calendar-day.active {
+            background-color: #0f5238;
+            color: white;
+        }
+        .calendar-day:not(.active):not(.empty):hover {
+            background-color: #e3e2df; /* surface-variant */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-inverse-surface h-screen w-full overflow-hidden flex flex-col font-body-md text-body-md antialiased text-on-surface">
+<!-- Modal Background overlay (simulated) -->
+<div class="absolute inset-0 bg-black/40 z-0"></div>
+<!-- Full Height Bottom Sheet -->
+<main class="absolute bottom-0 w-full h-[839px] bg-surface rounded-t-[16px] flex flex-col z-10 overflow-hidden shadow-[0_-8px_32px_rgba(0,0,0,0.12)] transition-transform duration-300 transform translate-y-0">
+<!-- Drag Handle Area -->
+<div class="w-full flex justify-center pt-sm pb-xs">
+<div class="w-12 h-1 bg-line rounded-full"></div>
+</div>
+<!-- Sheet Header Navigation -->
+<header class="flex justify-between items-center px-margin-h h-[50px] border-b border-line shrink-0">
+<button class="text-secondary font-body-md text-body-md px-2 -ml-2 active:opacity-60 transition-opacity">Cancel</button>
+<h1 class="font-section-header text-section-header text-on-surface">New Event</h1>
+<button class="text-primary font-section-header text-section-header px-2 -mr-2 active:opacity-60 transition-opacity">Add Event</button>
+</header>
+<!-- Scrollable Content Canvas -->
+<div class="flex-1 overflow-y-auto no-scrollbar px-margin-h pt-lg pb-[100px] flex flex-col gap-lg">
+<!-- Segmented Event Type Selector -->
+<section class="flex flex-col gap-sm">
+<label class="font-section-header text-section-header text-on-surface-variant">Event Type</label>
+<div class="flex w-full bg-surface-container-low p-1 rounded-lg border border-line">
+<div class="flex-1 text-center relative">
+<input checked="" class="hidden" id="type_test" name="event_type" type="radio"/>
+<label class="block w-full py-2 font-label-md text-label-md text-secondary rounded-[4px] cursor-pointer transition-colors" for="type_test">Test</label>
+</div>
+<div class="flex-1 text-center relative">
+<input class="hidden" id="type_class" name="event_type" type="radio"/>
+<label class="block w-full py-2 font-label-md text-label-md text-secondary rounded-[4px] cursor-pointer transition-colors" for="type_class">Extra Class</label>
+</div>
+<div class="flex-1 text-center relative">
+<input class="hidden" id="type_assignment" name="event_type" type="radio"/>
+<label class="block w-full py-2 font-label-md text-label-md text-secondary rounded-[4px] cursor-pointer transition-colors" for="type_assignment">Assignment</label>
+</div>
+<div class="flex-1 text-center relative">
+<input class="hidden" id="type_notice" name="event_type" type="radio"/>
+<label class="block w-full py-2 font-label-md text-label-md text-secondary rounded-[4px] cursor-pointer transition-colors" for="type_notice">Notice</label>
+</div>
+</div>
+</section>
+<!-- Title Input -->
+<section>
+<input class="w-full h-button-height bg-surface border border-line rounded-[4px] px-md font-course-name text-course-name text-on-surface placeholder:text-text-tertiary focus:border-primary transition-colors" placeholder="Event Title" type="text"/>
+</section>
+<!-- Course Dropdown -->
+<section class="relative">
+<select class="w-full h-button-height bg-surface border border-line rounded-[4px] px-md font-body-md text-body-md text-on-surface appearance-none focus:border-primary transition-colors cursor-pointer pr-[40px]">
+<option disabled="" hidden="" selected="" value="">Select Course Code</option>
+<option value="cs101">CS101 - Intro to Programming</option>
+<option value="math202">MATH202 - Linear Algebra</option>
+<option value="phy105">PHY105 - Mechanics</option>
+<option value="eng301">ENG301 - Technical Writing</option>
+</select>
+<span class="material-symbols-outlined absolute right-md top-1/2 -translate-y-1/2 text-secondary pointer-events-none" style="font-variation-settings: 'FILL' 0;">arrow_drop_down</span>
+</section>
+<!-- Teacher Input -->
+<section>
+<input class="w-full h-button-height bg-surface border border-line rounded-[4px] px-md font-body-md text-body-md text-on-surface placeholder:text-text-tertiary focus:border-primary transition-colors" placeholder="Teacher / Instructor (Optional)" type="text"/>
+</section>
+<!-- Inline Compact Calendar Picker -->
+<section class="border border-line rounded-[4px] p-md bg-surface-container-low flex flex-col gap-md">
+<div class="flex justify-between items-center">
+<span class="font-section-header text-section-header text-on-surface">October 2023</span>
+<div class="flex gap-xs">
+<button class="w-8 h-8 flex items-center justify-center rounded-[4px] hover:bg-surface-variant transition-colors text-secondary"><span class="material-symbols-outlined text-[20px]">chevron_left</span></button>
+<button class="w-8 h-8 flex items-center justify-center rounded-[4px] hover:bg-surface-variant transition-colors text-secondary"><span class="material-symbols-outlined text-[20px]">chevron_right</span></button>
+</div>
+</div>
+<div class="calendar-grid">
+<!-- Days Header -->
+<div class="font-data-mono text-data-mono text-text-tertiary text-center pb-xs">S</div>
+<div class="font-data-mono text-data-mono text-text-tertiary text-center pb-xs">M</div>
+<div class="font-data-mono text-data-mono text-text-tertiary text-center pb-xs">T</div>
+<div class="font-data-mono text-data-mono text-text-tertiary text-center pb-xs">W</div>
+<div class="font-data-mono text-data-mono text-text-tertiary text-center pb-xs">T</div>
+<div class="font-data-mono text-data-mono text-text-tertiary text-center pb-xs">F</div>
+<div class="font-data-mono text-data-mono text-text-tertiary text-center pb-xs">S</div>
+<!-- Calendar Days (Simulated) -->
+<div class="calendar-day empty"></div>
+<div class="calendar-day empty"></div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">1</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">2</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">3</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">4</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">5</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">6</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">7</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">8</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">9</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">10</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">11</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">12</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">13</div>
+<div class="calendar-day active font-data-mono text-data-mono">14</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">15</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">16</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">17</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">18</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">19</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">20</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">21</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">22</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">23</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">24</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">25</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">26</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">27</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">28</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">29</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">30</div>
+<div class="calendar-day font-data-mono text-data-mono text-on-surface">31</div>
+</div>
+</section>
+<!-- Time Inputs (Start & End) -->
+<section class="flex gap-md">
+<div class="flex-1 relative">
+<label class="block font-caption text-caption text-secondary mb-xs">Start Time</label>
+<input class="w-full h-button-height bg-surface border border-line rounded-[4px] px-md font-data-mono text-data-mono text-on-surface focus:border-primary transition-colors appearance-none" type="time" value="09:00"/>
+</div>
+<div class="flex-1 relative">
+<label class="block font-caption text-caption text-secondary mb-xs">End Time</label>
+<input class="w-full h-button-height bg-surface border border-line rounded-[4px] px-md font-data-mono text-data-mono text-on-surface focus:border-primary transition-colors appearance-none" type="time" value="10:30"/>
+</div>
+</section>
+<!-- Description -->
+<section>
+<textarea class="w-full bg-surface border border-line rounded-[4px] p-md font-body-md text-body-md text-on-surface placeholder:text-text-tertiary focus:border-primary transition-colors resize-none" placeholder="Event Description or Notes..." rows="4"></textarea>
+</section>
+<!-- Attach Files -->
+<section>
+<button class="w-full flex items-center gap-md p-md border border-dashed border-outline-variant rounded-[4px] hover:bg-surface-variant transition-colors text-secondary active:scale-[0.98]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">attach_file</span>
+<span class="font-body-md text-body-md">Attach syllabus or assignment file</span>
+</button>
+</section>
+</div>
+</main>
+</body></html>

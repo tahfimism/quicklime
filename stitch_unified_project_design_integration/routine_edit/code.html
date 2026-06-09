@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Edit Routine - Quicklime</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&amp;family=Geist+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#dbdad7",
+                        "inverse-surface": "#2f312f",
+                        "tertiary-fixed-dim": "#cbc6bc",
+                        "on-primary-container": "#a8e7c5",
+                        "primary-container": "#2d6a4f",
+                        "secondary-container": "#e2dfdd",
+                        "on-secondary-container": "#636261",
+                        "on-secondary-fixed": "#1c1c1a",
+                        "on-tertiary-container": "#ded9cf",
+                        "line": "#E4E2DD",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#474745",
+                        "destructive": "#C0392B",
+                        "outline": "#707973",
+                        "tertiary-fixed": "#e7e2d8",
+                        "on-tertiary-fixed": "#1d1c16",
+                        "on-primary-fixed-variant": "#0e5138",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#e3e2df",
+                        "on-surface": "#1b1c1a",
+                        "secondary-fixed-dim": "#c9c6c4",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#4a4740",
+                        "on-primary-fixed": "#002114",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#e5e2e0",
+                        "on-surface-variant": "#404943",
+                        "on-tertiary-fixed-variant": "#49473f",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#bfc9c1",
+                        "surface-variant": "#e3e2df",
+                        "surface-container": "#efeeeb",
+                        "inverse-primary": "#95d4b3",
+                        "surface": "#FFFFFF",
+                        "primary": "#0f5238",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#95d4b3",
+                        "primary-fixed": "#b1f0ce",
+                        "text-tertiary": "#AEADA8",
+                        "surface-tint": "#2c694e",
+                        "sunken": "#EEECE8",
+                        "background": "#faf9f6",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#1b1c1a",
+                        "surface-container-low": "#f4f3f0",
+                        "surface-container-high": "#e9e8e5",
+                        "accent-muted": "#EAF1ED",
+                        "tertiary-container": "#625f57",
+                        "inverse-on-surface": "#f2f1ee",
+                        "surface-bright": "#faf9f6",
+                        "secondary": "#5f5e5d",
+                        "error": "#ba1a1a",
+                        "accent": "#0f5238"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "xxl": "48px",
+                        "md": "16px",
+                        "margin-h": "20px",
+                        "button-height": "50px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "data-mono": ["Geist Mono"],
+                        "caption": ["Instrument Sans"],
+                        "display-wordmark": ["Instrument Sans"],
+                        "course-name": ["Instrument Sans"],
+                        "label-md": ["Instrument Sans"],
+                        "section-header": ["Instrument Sans"],
+                        "body-md": ["Instrument Sans"],
+                        "headline-lg-mobile": ["Instrument Sans"],
+                        "event-title": ["Instrument Sans"],
+                        "code-mono": ["Geist Mono"],
+                        "headline-lg": ["Instrument Sans"]
+                    },
+                    "fontSize": {
+                        "data-mono": ["13px", {"lineHeight": "16px", "letterSpacing": "0px", "fontWeight": "400"}],
+                        "caption": ["11px", {"lineHeight": "16px", "letterSpacing": "0.1px", "fontWeight": "400"}],
+                        "display-wordmark": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.5px", "fontWeight": "600"}],
+                        "course-name": ["16px", {"lineHeight": "22px", "letterSpacing": "-0.2px", "fontWeight": "500"}],
+                        "label-md": ["13px", {"lineHeight": "18px", "letterSpacing": "0px", "fontWeight": "400"}],
+                        "section-header": ["13px", {"lineHeight": "18px", "letterSpacing": "0.4px", "fontWeight": "600"}],
+                        "body-md": ["15px", {"lineHeight": "22px", "letterSpacing": "0px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "30px", "letterSpacing": "-0.5px", "fontWeight": "600"}],
+                        "event-title": ["24px", {"lineHeight": "28px", "letterSpacing": "-0.2px", "fontWeight": "600"}],
+                        "code-mono": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1px", "fontWeight": "400"}],
+                        "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.5px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.surface-dim'); }
+        /* Full screen modal animation */
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .modal-sheet {
+            animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="antialiased flex items-center justify-center min-h-screen p-0 md:p-lg">
+<!-- Modal Container (Simulating the full-screen sheet on mobile, centered card on web) -->
+<div class="modal-sheet w-full h-full md:h-auto md:max-w-md md:rounded-[24px] bg-surface flex flex-col overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+<!-- Header -->
+<header class="flex justify-between items-center w-full px-margin-h h-[64px] border-b border-line bg-surface shrink-0 z-10">
+<button aria-label="Close" class="flex items-center justify-center w-10 h-10 -ml-2 text-on-surface hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 400;">close</span>
+</button>
+<h1 class="font-course-name text-course-name text-on-surface text-center flex-1">Monday Routine</h1>
+<button class="font-section-header text-section-header text-primary px-2 py-2 hover:opacity-80 transition-opacity">
+                Save
+            </button>
+</header>
+<!-- Scrollable Content -->
+<main class="flex-1 overflow-y-auto bg-surface pb-xxl">
+<div class="px-margin-h py-lg">
+<h2 class="font-section-header text-section-header text-on-surface-variant uppercase tracking-widest mb-md">Current Slots</h2>
+<!-- Routine Slots List -->
+<div class="flex flex-col gap-sm">
+<!-- Slot 1 -->
+<div class="flex items-center bg-surface border border-line rounded-lg p-md group hover:bg-surface-container-low transition-colors">
+<div class="flex-1 min-w-0 pr-md border-r border-line">
+<div class="flex items-baseline justify-between mb-1">
+<span class="font-course-name text-course-name text-on-surface truncate">Advanced Typography</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant whitespace-nowrap ml-sm">09:00</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-body-md text-body-md text-on-surface-variant truncate">Room 402</span>
+<span class="font-data-mono text-data-mono text-text-tertiary whitespace-nowrap ml-sm">10:30</span>
+</div>
+</div>
+<button aria-label="Delete slot" class="flex items-center justify-center w-12 h-full text-text-tertiary hover:text-destructive transition-colors pl-sm">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+<!-- Slot 2 -->
+<div class="flex items-center bg-surface border border-line rounded-lg p-md group hover:bg-surface-container-low transition-colors">
+<div class="flex-1 min-w-0 pr-md border-r border-line">
+<div class="flex items-baseline justify-between mb-1">
+<span class="font-course-name text-course-name text-on-surface truncate">Editorial Design</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant whitespace-nowrap ml-sm">11:00</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-body-md text-body-md text-on-surface-variant truncate">Studio A</span>
+<span class="font-data-mono text-data-mono text-text-tertiary whitespace-nowrap ml-sm">13:00</span>
+</div>
+</div>
+<button aria-label="Delete slot" class="flex items-center justify-center w-12 h-full text-text-tertiary hover:text-destructive transition-colors pl-sm">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+<!-- Slot 3 -->
+<div class="flex items-center bg-surface border border-line rounded-lg p-md group hover:bg-surface-container-low transition-colors">
+<div class="flex-1 min-w-0 pr-md border-r border-line">
+<div class="flex items-baseline justify-between mb-1">
+<span class="font-course-name text-course-name text-on-surface truncate">Digital Platforms</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant whitespace-nowrap ml-sm">14:00</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-body-md text-body-md text-on-surface-variant truncate">Lab 2</span>
+<span class="font-data-mono text-data-mono text-text-tertiary whitespace-nowrap ml-sm">15:30</span>
+</div>
+</div>
+<button aria-label="Delete slot" class="flex items-center justify-center w-12 h-full text-text-tertiary hover:text-destructive transition-colors pl-sm">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+<!-- Add Slot Action -->
+<button class="flex items-center justify-center w-full bg-surface border border-dashed border-outline-variant rounded-lg p-md mt-sm text-primary hover:bg-accent-muted transition-colors group">
+<span class="material-symbols-outlined mr-sm text-[20px]">add</span>
+<span class="font-course-name text-course-name">Add slot</span>
+</button>
+</div>
+</div>
+<!-- Contextual Info / Helper -->
+<div class="px-margin-h mt-lg flex items-start gap-3">
+<span class="material-symbols-outlined text-text-tertiary text-[20px] mt-0.5">info</span>
+<p class="font-label-md text-label-md text-on-surface-variant">
+                    Changes made here will be reflected in the schedule for all students enrolled in this section immediately upon saving.
+                </p>
+</div>
+</main>
+</div>
+</body></html>

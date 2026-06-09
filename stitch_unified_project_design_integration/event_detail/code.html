@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Event Detail - Mid-Term Examination</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&amp;family=Geist+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e3e2df",
+                        "surface-container-high": "#e9e8e5",
+                        "secondary-fixed": "#e5e2e0",
+                        "primary-fixed": "#b1f0ce",
+                        "error": "#ba1a1a",
+                        "outline-variant": "#bfc9c1",
+                        "surface-container-low": "#f4f3f0",
+                        "primary-fixed-dim": "#95d4b3",
+                        "error-container": "#ffdad6",
+                        "surface-container": "#efeeeb",
+                        "primary": "#0f5238",
+                        "background": "#faf9f6",
+                        "surface-container-highest": "#e3e2df",
+                        "text-tertiary": "#AEADA8",
+                        "surface-bright": "#faf9f6",
+                        "on-primary-container": "#a8e7c5",
+                        "outline": "#707973",
+                        "secondary-container": "#e2dfdd",
+                        "on-background": "#1b1c1a",
+                        "on-surface-variant": "#404943",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f2f1ee",
+                        "tertiary": "#4a4740",
+                        "inverse-primary": "#95d4b3",
+                        "surface": "#FFFFFF",
+                        "secondary": "#5f5e5d",
+                        "accent-muted": "#EAF1ED",
+                        "inverse-surface": "#2f312f",
+                        "on-tertiary-container": "#ded9cf",
+                        "on-primary-fixed-variant": "#0e5138",
+                        "secondary-fixed-dim": "#c9c6c4",
+                        "on-secondary": "#ffffff",
+                        "line": "#E4E2DD",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed-variant": "#49473f",
+                        "on-secondary-fixed": "#1c1c1a",
+                        "sunken": "#EEECE8",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#002114",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#cbc6bc",
+                        "on-secondary-container": "#636261",
+                        "tertiary-fixed": "#e7e2d8",
+                        "surface-dim": "#dbdad7",
+                        "destructive": "#C0392B",
+                        "on-tertiary-fixed": "#1d1c16",
+                        "tertiary-container": "#625f57",
+                        "on-secondary-fixed-variant": "#474745",
+                        "surface-tint": "#2c694e",
+                        "on-surface": "#1b1c1a",
+                        "primary-container": "#2d6a4f",
+                        "accent": "#0f5238" // Adding accent color based on primary for chips/lines
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "button-height": "50px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "xxl": "48px",
+                        "xs": "4px",
+                        "margin-h": "20px"
+                    },
+                    "fontFamily": {
+                        "course-name": ["Instrument Sans"],
+                        "code-mono": ["Geist Mono"],
+                        "headline-lg": ["Instrument Sans"],
+                        "headline-lg-mobile": ["Instrument Sans"],
+                        "event-title": ["Instrument Sans"],
+                        "display-wordmark": ["Instrument Sans"],
+                        "label-md": ["Instrument Sans"],
+                        "body-md": ["Instrument Sans"],
+                        "section-header": ["Instrument Sans"],
+                        "data-mono": ["Geist Mono"],
+                        "caption": ["Instrument Sans"]
+                    },
+                    "fontSize": {
+                        "course-name": ["16px", { "lineHeight": "22px", "letterSpacing": "-0.2px", "fontWeight": "500" }],
+                        "code-mono": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1px", "fontWeight": "400" }],
+                        "headline-lg": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.5px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.5px", "fontWeight": "600" }],
+                        "event-title": ["24px", { "lineHeight": "28px", "letterSpacing": "-0.2px", "fontWeight": "600" }],
+                        "display-wordmark": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.5px", "fontWeight": "600" }],
+                        "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0px", "fontWeight": "400" }],
+                        "body-md": ["15px", { "lineHeight": "22px", "letterSpacing": "0px", "fontWeight": "400" }],
+                        "section-header": ["13px", { "lineHeight": "18px", "letterSpacing": "0.4px", "fontWeight": "600" }],
+                        "data-mono": ["13px", { "lineHeight": "16px", "letterSpacing": "0px", "fontWeight": "400" }],
+                        "caption": ["11px", { "lineHeight": "16px", "letterSpacing": "0.1px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #faf9f6; } /* Background base */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen font-body-md text-body-md antialiased selection:bg-primary-container selection:text-on-primary-container flex flex-col md:max-w-2xl md:mx-auto">
+<!-- Top Navigation (Task-focused, so no global shell, custom top bar) -->
+<header class="flex items-center justify-between px-margin-h h-[50px] mt-xl sticky top-0 bg-background/90 backdrop-blur-sm z-10">
+<button aria-label="Go back" class="w-[50px] h-button-height flex items-center justify-start -ml-2 text-secondary hover:text-primary transition-colors duration-200">
+<span class="material-symbols-outlined text-[22px]" data-icon="chevron_left">chevron_left</span>
+</button>
+<div class="flex-1 flex justify-end">
+<!-- Chip: "Test" -->
+<span class="inline-flex items-center px-sm py-[2px] rounded-lg bg-accent-muted text-accent font-section-header text-section-header h-[28px]">
+                Test
+            </span>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 px-margin-h pt-lg pb-xxl flex flex-col gap-lg">
+<!-- Header Section -->
+<section class="flex flex-col gap-sm">
+<h1 class="font-event-title text-event-title text-on-surface">Mid-Term Examination</h1>
+<div class="flex flex-col gap-xs mt-sm">
+<p class="font-body-md text-body-md text-secondary flex items-center gap-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="event">event</span>
+                    Monday, 9 Jun · 10:00 – 11:30
+                </p>
+<p class="font-label-md text-label-md text-secondary flex items-center gap-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="menu_book">menu_book</span>
+                    Data Structures · Mr. Karim
+                </p>
+</div>
+</section>
+<!-- Divider -->
+<div class="border-t border-line w-full"></div>
+<!-- Description Section -->
+<section class="flex flex-col gap-md">
+<h2 class="font-section-header text-section-header text-secondary uppercase tracking-wider">Description</h2>
+<div class="font-body-md text-body-md text-on-surface-variant leading-relaxed space-y-4">
+<p>The mid-term examination will cover all topics discussed in chapters 1 through 5. Emphasis will be placed on algorithmic complexity, linked lists, stacks, queues, and binary search trees.</p>
+<p>Please arrive 15 minutes early. Calculators and digital devices are strictly prohibited. Bring a valid student ID.</p>
+</div>
+</section>
+<!-- Divider -->
+<div class="border-t border-line w-full"></div>
+<!-- Attachments Section -->
+<section class="flex flex-col gap-md">
+<h2 class="font-section-header text-section-header text-secondary uppercase tracking-wider">Attachments</h2>
+<!-- Attachment Row -->
+<div class="flex items-center justify-between p-md bg-surface border border-line rounded-lg hover:border-outline-variant transition-colors group cursor-pointer">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded bg-surface-variant flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+</div>
+<div class="flex flex-col">
+<span class="font-course-name text-course-name text-on-surface">Syllabus_Final.pdf</span>
+<span class="font-data-mono text-data-mono text-secondary">2.4 MB</span>
+</div>
+</div>
+<button aria-label="Download attachment" class="w-10 h-10 flex items-center justify-center text-secondary group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+</button>
+</div>
+<!-- Additional Attachment Example -->
+<div class="flex items-center justify-between p-md bg-surface border border-line rounded-lg hover:border-outline-variant transition-colors group cursor-pointer">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded bg-surface-variant flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="image">image</span>
+</div>
+<div class="flex flex-col">
+<span class="font-course-name text-course-name text-on-surface">Seating_Chart.png</span>
+<span class="font-data-mono text-data-mono text-secondary">1.1 MB</span>
+</div>
+</div>
+<button aria-label="Download attachment" class="w-10 h-10 flex items-center justify-center text-secondary group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+</button>
+</div>
+</section>
+<!-- Action Area (Floating at bottom for mobile, inline for desktop) -->
+<section class="mt-xl">
+<button class="w-full h-button-height bg-primary text-on-primary rounded-[12px] font-section-header text-section-header flex items-center justify-center transition-opacity hover:opacity-90 active:scale-[0.98]">
+                Add to Personal Calendar
+            </button>
+</section>
+</main>
+</body></html>

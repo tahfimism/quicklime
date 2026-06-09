@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "33446789018",
+    "project_id": "quicklime-83fd3",
+    "storage_bucket": "quicklime-83fd3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:33446789018:android:cd0cef1a135d74d17d4423",
+        "android_client_info": {
+          "package_name": "com.tahfimism.quickline"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEm8Jm4YwToEEcBEF43yhroLsLi5DWHMs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

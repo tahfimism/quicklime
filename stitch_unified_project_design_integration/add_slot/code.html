@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quicklime - Add Slot</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&amp;family=Geist+Mono:wght@400&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#dbdad7",
+                        "inverse-surface": "#2f312f",
+                        "tertiary-fixed-dim": "#cbc6bc",
+                        "on-primary-container": "#a8e7c5",
+                        "primary-container": "#2d6a4f",
+                        "secondary-container": "#e2dfdd",
+                        "on-secondary-container": "#636261",
+                        "on-secondary-fixed": "#1c1c1a",
+                        "on-tertiary-container": "#ded9cf",
+                        "line": "#E4E2DD",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#474745",
+                        "destructive": "#C0392B",
+                        "outline": "#707973",
+                        "tertiary-fixed": "#e7e2d8",
+                        "on-tertiary-fixed": "#1d1c16",
+                        "on-primary-fixed-variant": "#0e5138",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#e3e2df",
+                        "on-surface": "#1b1c1a",
+                        "secondary-fixed-dim": "#c9c6c4",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#4a4740",
+                        "on-primary-fixed": "#002114",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#e5e2e0",
+                        "on-surface-variant": "#404943",
+                        "on-tertiary-fixed-variant": "#49473f",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#bfc9c1",
+                        "surface-variant": "#e3e2df",
+                        "surface-container": "#efeeeb",
+                        "inverse-primary": "#95d4b3",
+                        "surface": "#FFFFFF",
+                        "primary": "#0f5238",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#95d4b3",
+                        "primary-fixed": "#b1f0ce",
+                        "text-tertiary": "#AEADA8",
+                        "surface-tint": "#2c694e",
+                        "sunken": "#EEECE8",
+                        "background": "#faf9f6",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#1b1c1a",
+                        "surface-container-low": "#f4f3f0",
+                        "surface-container-high": "#e9e8e5",
+                        "accent-muted": "#EAF1ED",
+                        "tertiary-container": "#625f57",
+                        "inverse-on-surface": "#f2f1ee",
+                        "surface-bright": "#faf9f6",
+                        "secondary": "#5f5e5d",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "xxl": "48px",
+                        "md": "16px",
+                        "margin-h": "20px",
+                        "button-height": "50px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "data-mono": ["Geist Mono"],
+                        "caption": ["Instrument Sans"],
+                        "display-wordmark": ["Instrument Sans"],
+                        "course-name": ["Instrument Sans"],
+                        "label-md": ["Instrument Sans"],
+                        "section-header": ["Instrument Sans"],
+                        "body-md": ["Instrument Sans"],
+                        "headline-lg-mobile": ["Instrument Sans"],
+                        "event-title": ["Instrument Sans"],
+                        "code-mono": ["Geist Mono"],
+                        "headline-lg": ["Instrument Sans"]
+                    },
+                    "fontSize": {
+                        "data-mono": ["13px", { "lineHeight": "16px", "letterSpacing": "0px", "fontWeight": "400" }],
+                        "caption": ["11px", { "lineHeight": "16px", "letterSpacing": "0.1px", "fontWeight": "400" }],
+                        "display-wordmark": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.5px", "fontWeight": "600" }],
+                        "course-name": ["16px", { "lineHeight": "22px", "letterSpacing": "-0.2px", "fontWeight": "500" }],
+                        "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0px", "fontWeight": "400" }],
+                        "section-header": ["13px", { "lineHeight": "18px", "letterSpacing": "0.4px", "fontWeight": "600" }],
+                        "body-md": ["15px", { "lineHeight": "22px", "letterSpacing": "0px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.5px", "fontWeight": "600" }],
+                        "event-title": ["24px", { "lineHeight": "28px", "letterSpacing": "-0.2px", "fontWeight": "600" }],
+                        "code-mono": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1px", "fontWeight": "400" }],
+                        "headline-lg": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.5px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Backdrop blur for the scrim */
+        .scrim {
+            background-color: rgba(27, 28, 26, 0.4);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        /* Bottom sheet animation */
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        .bottom-sheet {
+            animation: slideUp 0.3s cubic-bezier(0.2, 0, 0, 1) forwards;
+        }
+
+        /* Custom input styles matching design system */
+        .ds-input {
+            height: theme('spacing.button-height');
+            background-color: theme('colors.surface');
+            border: 1px solid theme('colors.line');
+            border-radius: theme('borderRadius.DEFAULT');
+            padding: 0 theme('spacing.md');
+            color: theme('colors.on-surface');
+            width: 100%;
+            transition: border-color 0.2s ease;
+            outline: none;
+        }
+        .ds-input:focus {
+            border-color: theme('colors.primary');
+            border-width: 1.5px;
+        }
+        .ds-input::placeholder {
+            color: theme('colors.text-tertiary');
+        }
+
+        /* Time picker inputs */
+        input[type="time"]::-webkit-calendar-picker-indicator {
+            filter: invert(0.4) sepia(0) saturate(0) hue-rotate(0deg);
+            cursor: pointer;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="flex flex-col min-h-screen relative overflow-hidden">
+<!-- Background Canvas (Simulating the underlying app screen) -->
+<div class="flex-1 w-full max-w-md mx-auto relative px-margin-h pt-xl pb-32">
+<header class="flex justify-between items-center w-full h-[50px] border-b border-line mb-lg">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary text-[22px]">grid_view</span>
+<h1 class="font-display-wordmark text-display-wordmark text-primary">Quicklime</h1>
+</div>
+</header>
+<div class="space-y-md opacity-40 blur-[2px] pointer-events-none">
+<div class="bg-surface border border-line rounded-lg p-md h-32 w-full"></div>
+<div class="bg-surface border border-line rounded-lg p-md h-24 w-full"></div>
+<div class="bg-surface border border-line rounded-lg p-md h-40 w-full"></div>
+</div>
+</div>
+<!-- Scrim & Bottom Sheet Container -->
+<div class="fixed inset-0 z-50 flex flex-col justify-end scrim sm:items-center sm:justify-center p-0 sm:p-margin-h">
+<!-- Interactive area to dismiss (click outside) -->
+<div aria-hidden="true" class="absolute inset-0 cursor-pointer"></div>
+<!-- The Bottom Sheet / Modal -->
+<div class="bottom-sheet bg-background w-full sm:max-w-md rounded-t-[24px] sm:rounded-xl shadow-2xl relative flex flex-col max-h-[795px]">
+<!-- Drag Handle (Mobile) -->
+<div class="w-full flex justify-center pt-sm pb-xs sm:hidden">
+<div class="w-12 h-1 bg-line rounded-full"></div>
+</div>
+<!-- Header -->
+<div class="px-margin-h py-md flex justify-between items-center border-b border-line shrink-0">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Add Slot</h2>
+<button aria-label="Close" class="text-secondary hover:text-on-surface transition-colors w-[44px] h-[44px] flex items-center justify-center -mr-xs">
+<span class="material-symbols-outlined text-[24px]">close</span>
+</button>
+</div>
+<!-- Scrollable Content -->
+<div class="px-margin-h py-lg overflow-y-auto space-y-lg flex-1">
+<!-- Main Details Group -->
+<div class="space-y-md">
+<!-- Course Name -->
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface-variant block" for="courseName">Course Name</label>
+<input class="ds-input font-body-md text-body-md" id="courseName" placeholder="e.g. Graphic Design History" type="text"/>
+</div>
+<!-- Course Code & Room Row -->
+<div class="flex gap-md w-full">
+<div class="space-y-xs flex-1">
+<label class="font-label-md text-label-md text-on-surface-variant block" for="courseCode">Course Code</label>
+<input class="ds-input font-data-mono text-data-mono uppercase tracking-wider" id="courseCode" placeholder="DES-301" type="text"/>
+</div>
+<div class="space-y-xs flex-1">
+<label class="font-label-md text-label-md text-on-surface-variant block flex items-center gap-1" for="room">
+                                Room <span class="text-text-tertiary font-caption text-caption">(Optional)</span>
+</label>
+<input class="ds-input font-body-md text-body-md" id="room" placeholder="e.g. Studio 4" type="text"/>
+</div>
+</div>
+<!-- Teacher Name -->
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface-variant block" for="teacherName">Teacher Name</label>
+<input class="ds-input font-body-md text-body-md" id="teacherName" placeholder="e.g. Prof. R. Müller" type="text"/>
+</div>
+</div>
+<!-- Divider -->
+<div class="h-px bg-line w-full"></div>
+<!-- Timing Group -->
+<div class="space-y-md">
+<h3 class="font-section-header text-section-header text-on-surface uppercase tracking-wider">Timing</h3>
+<div class="flex gap-md w-full">
+<div class="space-y-xs flex-1 relative">
+<label class="font-label-md text-label-md text-on-surface-variant block" for="startTime">Start Time</label>
+<div class="relative">
+<input class="ds-input font-data-mono text-data-mono w-full" id="startTime" type="time" value="09:00"/>
+</div>
+</div>
+<div class="space-y-xs flex-1">
+<label class="font-label-md text-label-md text-on-surface-variant block" for="endTime">End Time</label>
+<div class="relative">
+<input class="ds-input font-data-mono text-data-mono w-full" id="endTime" type="time" value="10:30"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Action -->
+<div class="p-margin-h border-t border-line bg-surface sm:rounded-b-xl shrink-0 pb-[calc(theme('spacing.margin-h')+env(safe-area-inset-bottom))] sm:pb-margin-h">
+<button class="w-full h-button-height bg-on-surface text-on-primary font-section-header text-section-header rounded-xl hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+                    Add Slot
+                </button>
+</div>
+</div>
+</div>
+</body></html>
