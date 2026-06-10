@@ -43,14 +43,22 @@ export const functions = getFunctions(app, 'us-central1');
 const useEmulator = process.env.EXPO_PUBLIC_USE_FIREBASE_EMULATOR === 'true';
 
 if (useEmulator) {
-  // localhost works for Web and iOS simulators, but Android emulators require 10.0.2.2 to reach development machine.
-  const host = Platform.OS === 'android' ? '10.0.2.2' : 'localhost';
-  
-  connectAuthEmulator(auth, `http://${host}:9099`);
+  // Host resolution:
+  //  - Physical Android device: set EXPO_PUBLIC_EMULATOR_HOST to your PC's LAN IP (e.g. 192.168.1.x)
+  //  - Android Studio emulator: 10.0.2.2 (maps to host machine's localhost)
+  //  - iOS Simulator / Web: localhost
+  const envHost = process.env.EXPO_PUBLIC_EMULATOR_HOST;
+  const host = envHost
+    ? envHost
+    : Platform.OS === 'android'
+    ? '10.0.2.2'
+    : 'localhost';
+
+  connectAuthEmulator(auth, `http://${host}:9099`, { disableWarnings: false });
   connectFirestoreEmulator(db, host, 8080);
   connectStorageEmulator(storage, host, 9199);
   connectFunctionsEmulator(functions, host, 5001);
-  console.log(`[Firebase] Connected to local Emulator Suite at ${host}`);
+  console.log(`[Firebase] Connected to Emulator Suite at ${host}`);
 }
 export { auth };
 export default app;

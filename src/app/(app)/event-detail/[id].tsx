@@ -86,7 +86,9 @@ export default function EventDetailScreen() {
           </Typography>
         </View>
 
-        <View style={{ width: 44 }} /> {/* Spacer balance */}
+        {/* Spacer balance */}
+        <View style={{ width: 44 }} />
+
       </View>
 
       <View style={styles.content}>
