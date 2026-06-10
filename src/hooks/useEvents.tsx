@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import {
   collection,
   doc,
@@ -14,11 +14,28 @@ import { db } from '@/lib/firebase';
 import { useAuth } from './useAuth';
 import { Event } from '@/types';
 
-/**
- * Custom hook to manage workspace events in real-time.
- * Supports adding, editing, and deleting events (restricted to CRs).
- */
-export function useEvents() {
+interface EventsContextType {
+  events: Event[];
+  loading: boolean;
+  addEvent: (
+    eventData: Omit<
+      Event,
+      'id' | 'createdBy' | 'createdAt' | 'updatedAt' | 'notificationSent'
+    >
+  ) => Promise<void>;
+  editEvent: (eventId: string, updates: Partial<Omit<Event, 'id' | 'createdAt'>>) => Promise<void>;
+  deleteEvent: (eventId: string) => Promise<void>;
+}
+
+const EventsContext = createContext<EventsContextType>({
+  events: [],
+  loading: true,
+  addEvent: async () => {},
+  editEvent: async () => {},
+  deleteEvent: async () => {},
+});
+
+export function EventsProvider({ children }: { children: React.ReactNode }) {
   const { profile } = useAuth();
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
@@ -52,9 +69,6 @@ export function useEvents() {
     return unsub;
   }, [profile?.workspaceId]);
 
-  /**
-   * Adds a new event to the workspace events collection.
-   */
   const addEvent = async (
     eventData: Omit<
       Event,
@@ -75,9 +89,6 @@ export function useEvents() {
     });
   };
 
-  /**
-   * Edits/updates an existing event in the workspace.
-   */
   const editEvent = async (eventId: string, updates: Partial<Omit<Event, 'id' | 'createdAt'>>) => {
     if (!profile?.workspaceId || profile.role !== 'cr') {
       throw new Error('Permission Denied: Only CR can edit events.');
@@ -90,9 +101,6 @@ export function useEvents() {
     });
   };
 
-  /**
-   * Deletes an event from the workspace.
-   */
   const deleteEvent = async (eventId: string) => {
     if (!profile?.workspaceId || profile.role !== 'cr') {
       throw new Error('Permission Denied: Only CR can delete events.');
@@ -102,6 +110,14 @@ export function useEvents() {
     await deleteDoc(eventDocRef);
   };
 
-  return { events, loading, addEvent, editEvent, deleteEvent };
+  return (
+    <EventsContext.Provider value={{ events, loading, addEvent, editEvent, deleteEvent }}>
+      {children}
+    </EventsContext.Provider>
+  );
+}
+
+export function useEvents() {
+  return useContext(EventsContext);
 }
 export default useEvents;
