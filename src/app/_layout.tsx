@@ -10,7 +10,10 @@ import {
 import {
   GeistMono_400Regular,
 } from '@expo-google-fonts/geist-mono';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth, AuthProvider } from '@/hooks/useAuth';
+import { WorkspaceProvider } from '@/hooks/useWorkspace';
+import { RoutineProvider } from '@/hooks/useRoutine';
+import { EventsProvider } from '@/hooks/useEvents';
 
 // Keep the splash screen visible while we fetch assets
 SplashScreen.preventAutoHideAsync();
@@ -81,7 +84,15 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AuthGate />
+      <AuthProvider>
+        <WorkspaceProvider>
+          <RoutineProvider>
+            <EventsProvider>
+              <AuthGate />
+            </EventsProvider>
+          </RoutineProvider>
+        </WorkspaceProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

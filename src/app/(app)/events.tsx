@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { View, ScrollView, StyleSheet, useColorScheme, TouchableOpacity, Modal } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Colors, Spacing, Radii } from '@/constants/theme';
@@ -18,6 +18,9 @@ const FILTER_TYPES: { label: string; value: EventType | 'all' }[] = [
   { label: 'Assignments', value: 'assignment' },
   { label: 'Notices', value: 'notice' },
 ];
+
+const EVENT_TYPES: EventType[] = ['test', 'extra_class', 'assignment', 'notice'];
+const EVENT_TYPE_LABELS = { test: 'Test', extra_class: 'Class', assignment: 'Task', notice: 'Notice' };
 
 /**
  * Helper to validate date format YYYY-MM-DD
@@ -91,12 +94,13 @@ export default function EventsScreen() {
 
   const isCR = profile?.role === 'cr';
 
-  // Filter events based on active category
-  const filteredEvents = activeFilter === 'all'
-    ? events
-    : events.filter((e) => e.type === activeFilter);
-
-  const groupedEvents = groupEventsByDate(filteredEvents);
+  // Filter events based on active category and memoize grouping
+  const groupedEvents = useMemo(() => {
+    const filteredEvents = activeFilter === 'all'
+      ? events
+      : events.filter((e) => e.type === activeFilter);
+    return groupEventsByDate(filteredEvents);
+  }, [events, activeFilter]);
 
   const handleOpenAddModal = () => {
     setEventType('notice');
@@ -265,9 +269,8 @@ export default function EventsScreen() {
               {/* Event Type segmented selector */}
               <Typography variant="labelMd" style={{ marginBottom: Spacing.sm }}>Event Type *</Typography>
               <View style={styles.segmentedControl}>
-                {(['test', 'extra_class', 'assignment', 'notice'] as EventType[]).map((type) => {
+                {EVENT_TYPES.map((type) => {
                   const isActive = eventType === type;
-                  const labelMap = { test: 'Test', extra_class: 'Class', assignment: 'Task', notice: 'Notice' };
                   return (
                     <TouchableOpacity
                       key={type}
@@ -282,7 +285,7 @@ export default function EventsScreen() {
                         color={isActive ? activeColors.background : activeColors.secondary}
                         style={{ fontWeight: '500' }}
                       >
-                        {labelMap[type]}
+                        {EVENT_TYPE_LABELS[type]}
                       </Typography>
                     </TouchableOpacity>
                   );

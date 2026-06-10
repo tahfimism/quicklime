@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { View, ScrollView, StyleSheet, useColorScheme, RefreshControl } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Colors, Spacing } from '@/constants/theme';
@@ -36,16 +36,8 @@ function getTodayDateString() {
  * Today Screen.
  * Renders the dashboard showing today's class schedule and upcoming events.
  */
-export default function TodayScreen() {
-  const scheme = useColorScheme();
-  const activeColors = Colors[scheme === 'dark' ? 'dark' : 'light'];
-  const router = useRouter();
-
-  const { routines, loading: loadingRoutines } = useRoutine();
-  const { events, loading: loadingEvents } = useEvents();
-
+function CurrentTimeList({ todaySlots }: { todaySlots: any[] }) {
   const [currentTimeStr, setCurrentTimeStr] = useState('');
-  const [refreshing, setRefreshing] = useState(false);
 
   // Keep current time updated to refresh "Now" indicators
   useEffect(() => {
@@ -60,6 +52,34 @@ export default function TodayScreen() {
     return () => clearInterval(interval);
   }, []);
 
+  return (
+    <>
+      {todaySlots.map((slot) => {
+        const isPast = slot.endTime < currentTimeStr;
+        const isCurrent = slot.startTime <= currentTimeStr && slot.endTime >= currentTimeStr;
+        return (
+          <ClassRow
+            key={slot.slotId}
+            slot={slot}
+            isCurrent={isCurrent}
+            isPast={isPast}
+          />
+        );
+      })}
+    </>
+  );
+}
+
+export default function TodayScreen() {
+  const scheme = useColorScheme();
+  const activeColors = Colors[scheme === 'dark' ? 'dark' : 'light'];
+  const router = useRouter();
+
+  const { routines, loading: loadingRoutines } = useRoutine();
+  const { events, loading: loadingEvents } = useEvents();
+
+  const [refreshing, setRefreshing] = useState(false);
+
   const handleRefresh = async () => {
     setRefreshing(true);
     // Real-time queries automatically sync, we just add a visual delay to feel native
@@ -67,15 +87,19 @@ export default function TodayScreen() {
     setRefreshing(false);
   };
 
-  const todayDayIndex = new Date().getDay(); // 0 = Sunday ... 6 = Saturday
-  const todayRoutine = routines[todayDayIndex];
-  const todaySlots = todayRoutine?.slots || [];
+  const todaySlots = useMemo(() => {
+    const todayDayIndex = new Date().getDay(); // 0 = Sunday ... 6 = Saturday
+    const todayRoutine = routines[todayDayIndex];
+    return todayRoutine?.slots || [];
+  }, [routines]);
 
   // Filter events from today onwards, take top 3
-  const todayDateStr = getTodayDateString();
-  const upcomingEvents = events
-    .filter((event) => event.date >= todayDateStr)
-    .slice(0, 3);
+  const upcomingEvents = useMemo(() => {
+    const todayDateStr = getTodayDateString();
+    return events
+      .filter((event) => event.date >= todayDateStr)
+      .slice(0, 3);
+  }, [events]);
 
   const loading = loadingRoutines || loadingEvents;
 
@@ -122,18 +146,7 @@ export default function TodayScreen() {
             </View>
           ) : (
             <View style={styles.listContainer}>
-              {todaySlots.map((slot) => {
-                const isPast = slot.endTime < currentTimeStr;
-                const isCurrent = slot.startTime <= currentTimeStr && slot.endTime >= currentTimeStr;
-                return (
-                  <ClassRow
-                    key={slot.slotId}
-                    slot={slot}
-                    isCurrent={isCurrent}
-                    isPast={isPast}
-                  />
-                );
-              })}
+              <CurrentTimeList todaySlots={todaySlots} />
             </View>
           )}
         </View>

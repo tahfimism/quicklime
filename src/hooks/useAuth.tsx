@@ -1,14 +1,24 @@
-import { useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { onIdTokenChanged, User, ParsedToken } from 'firebase/auth';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { auth, db } from '@/lib/firebase';
 import { UserProfile } from '@/types';
 
-/**
- * Custom hook to monitor user authentication state and user profile updates in Firestore.
- * Automatically synchronizes the workspaceId and role claims.
- */
-export function useAuth() {
+interface AuthContextType {
+  user: User | null;
+  profile: UserProfile | null;
+  claims: ParsedToken | null;
+  loading: boolean;
+}
+
+const AuthContext = createContext<AuthContextType>({
+  user: null,
+  profile: null,
+  claims: null,
+  loading: true,
+});
+
+export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [claims, setClaims] = useState<ParsedToken | null>(null);
@@ -39,22 +49,34 @@ export function useAuth() {
 
     // Listen to changes in the users/{uid} document
     const userDocRef = doc(db, 'users', user.uid);
-    const unsubDoc = onSnapshot(userDocRef, (snap) => {
-      if (snap.exists()) {
-        const profileData = snap.data() as UserProfile;
-        setProfile(profileData);
-      } else {
-        setProfile(null);
+    const unsubDoc = onSnapshot(
+      userDocRef,
+      (snap) => {
+        if (snap.exists()) {
+          const profileData = snap.data() as UserProfile;
+          setProfile(profileData);
+        } else {
+          setProfile(null);
+        }
+        setLoading(false);
+      },
+      (err) => {
+        console.error('Error listening to user profile:', err);
+        setLoading(false);
       }
-      setLoading(false);
-    }, (err) => {
-      console.error('Error listening to user profile:', err);
-      setLoading(false);
-    });
+    );
 
     return unsubDoc;
   }, [user]);
 
-  return { user, profile, claims, loading };
+  return (
+    <AuthContext.Provider value={{ user, profile, claims, loading }}>
+      {children}
+    </AuthContext.Provider>
+  );
+}
+
+export function useAuth() {
+  return useContext(AuthContext);
 }
 export default useAuth;
